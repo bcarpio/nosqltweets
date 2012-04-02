@@ -1,5 +1,6 @@
 from twython import Twython
 from pymongo import *
+from datetime import *
 
 conn = Connection('localhost')
 db = conn.nosqltweets
@@ -19,7 +20,7 @@ for nosql in types:
 		collection.ensure_index('id_str', unique=True)
 		from_user = tweet['from_user'].encode('utf-8')
 		text = tweet['text']
-		created_at = tweet['created_at']
+		created_at = datetime.strptime(tweet['created_at'], "%a, %d %b %Y %H:%M:%S +0000")
 		id_str = tweet['id_str']
 		post = { 'id_str': id_str, 'from_user': from_user, 'created_at': created_at } 
 		collection.insert(post)

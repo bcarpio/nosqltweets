@@ -8,8 +8,7 @@ twitter = Twython()
 types = ['mongodb', 'cassandra', 'couchdb']
 
 for db in types:
-	print db
-	search_results = twitter.searchTwitter(q="%s", rpp="100") % (db)
+	search_results = twitter.searchTwitter(q=db, rpp="100")
 	for tweet in search_results["results"]:
 		col = "db.(db) "
 		from_user = tweet['from_user'].encode('utf-8')
@@ -18,4 +17,3 @@ for db in types:
 		id_str = tweet['id_str']
 		post = { 'id_str': id_str, 'from_user': from_user, 'created_at': created_at, 'text': text } 
 		#col.insert(post) 
-		print post

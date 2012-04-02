@@ -14,7 +14,7 @@ twitter = Twython(
 types = ['mongodb', 'cassandra', 'couchdb']
 
 for nosql in types:
-	search_results = twitter.searchTwitter(q=nosql, rpp="100")
+	search_results = twitter.searchTwitter(q='#%s'%(nosql), rpp="100")
 	for tweet in search_results["results"]:
 		collection = getattr(db, nosql)
 		collection.ensure_index('id_str', unique=True)
@@ -22,5 +22,6 @@ for nosql in types:
 		text = tweet['text']
 		created_at = datetime.strptime(tweet['created_at'], "%a, %d %b %Y %H:%M:%S +0000")
 		id_str = tweet['id_str']
-		post = { 'id_str': id_str, 'from_user': from_user, 'created_at': created_at } 
-		collection.insert(post)
+		post = { 'text': text, 'id_str': id_str, 'from_user': from_user, 'created_at': created_at } 
+		#collection.insert(post)
+		db[nosql].insert(post)

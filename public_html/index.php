@@ -1,10 +1,8 @@
 <?php
-// load up your config file
-    require_once("../conf/config.php");
+	require_once("../conf/config.php");
 	require_once($TEMPLATE_PATH . "/header.php");
-?>
 
-<?php
+$years = array('2012-01-01', '2013', '2014');
 $list = $db->listCollections();
 
 foreach ($list as $collection){
@@ -24,9 +22,18 @@ if(isset($_GET['nosql'])) {
 	$cursor = $db->$s;
 ?>
 	<B><?php print $s ?></B><BR>
-	Number: <?php echo $cursor->count(); ?>
+	Total Number: <?php echo $cursor->count(); ?><BR>
+	<?php
+	foreach ($years as $year){
+	$start = $year;
+	$end = $year;
+	$count = $cursor->count(array("created_at" => array('$gt' => "2012", '$lte' => "2013")));
+	?>
+	Year: <?php echo $count; ?> <BR>
+	
 
 <?php
+}
 }
 ?>
 <?php

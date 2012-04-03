@@ -22,6 +22,5 @@ for nosql in types:
 		text = tweet['text']
 		created_at = datetime.strptime(tweet['created_at'], "%a, %d %b %Y %H:%M:%S +0000")
 		id_str = tweet['id_str']
-		post = { 'text': text, 'id_str': id_str, 'from_user': from_user, 'created_at': created_at } 
-		#collection.insert(post)
-		db[nosql].insert(post)
+		post = { 'id_str': id_str, 'from_user': from_user, 'created_at': created_at } 
+		collection.insert(post)

@@ -8,7 +8,8 @@
 $list = $db->listCollections();
 
 foreach ($list as $collection){
-	$collection = preg_replace("/".$DATABASE."/", $replace, $collection);
+	$collection = preg_replace("/".$DATABASE."/", "", $collection);
+	$collection = preg_replace("/\.+/i", "", $collection); 
 	if(!isset($_GET['nosql'])) {
 ?>
 

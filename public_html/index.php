@@ -20,8 +20,11 @@ foreach ($list as $collection){
 
 if(isset($_GET['nosql'])) {
 	$s = $_GET["nosql"];
+	$cursor = $db->$s;
 ?>
-	<B><?php print $s ?></B>
+	<B><?php print $s ?></B><BR>
+	Number: <?php echo $cursor->count(); ?>
+
 <?php
 }
 ?>
